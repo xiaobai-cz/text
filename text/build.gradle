@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -10,6 +11,8 @@ android {
     defaultConfig {
         minSdk 23
         targetSdk 33
+        versionCode 1
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,4 +38,23 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.xiaobaicz'
+                artifactId = 'text'
+                version = '1.0.0'
+            }
+            debug(MavenPublication) {
+                from components.debug
+                groupId = 'com.github.xiaobaicz'
+                artifactId = 'text-debug'
+                version = '1.0.0'
+            }
+        }
+    }
 }
