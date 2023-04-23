@@ -12,8 +12,6 @@ allprojects {
 
 ~~~ groovy
 dependencies {
-    implementation 'com.github.xiaobaicz:text:1.0.0'
-    // or
-    implementation 'com.github.xiaobaicz:text-debug:1.0.0'
+    implementation 'com.github.xiaobaicz.text:text:1.0.0'
 }
 ~~~
