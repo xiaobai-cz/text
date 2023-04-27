@@ -2,6 +2,5 @@
 <resources>
     <declare-styleable name="Text">
         <attr name="lineHeightX" format="dimension"/>
-        <attr name="includeFontPadding" format="boolean"/>
     </declare-styleable>
 </resources>

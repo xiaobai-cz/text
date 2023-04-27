@@ -7,6 +7,7 @@ import android.text.StaticLayout
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatTextView
 import kotlin.math.max
 
@@ -15,18 +16,20 @@ import kotlin.math.max
  * 1. 行高适配
  * @see R.styleable.Text
  * @see R.styleable.Text_lineHeightX
- * @see R.styleable.Text_includeFontPadding
  * @author xiaobai
  */
 class Text : AppCompatTextView {
+
+    @StyleableRes
+    private var attrIndex = 0
 
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        handleCustomAttr(context, attrs, defStyleAttr)
         handleSysAttr(context, attrs, defStyleAttr)
+        handleCustomAttr(context, attrs, defStyleAttr)
     }
 
     // 处理自定义属性
@@ -34,8 +37,6 @@ class Text : AppCompatTextView {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.Text, defStyleAttr, 0)
         try {
             lineHeight = typedArray.getDimension(R.styleable.Text_lineHeightX, textSize).toInt()
-            includeFontPadding = typedArray.getBoolean(R.styleable.Text_includeFontPadding, false)
-            isFallbackLineSpacing = false
         } finally {
             typedArray.recycle()
         }
@@ -44,11 +45,15 @@ class Text : AppCompatTextView {
     // 处理系统属性
     private fun handleSysAttr(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         val typedArray = context.obtainStyledAttributes(attrs, intArrayOf(
-            android.R.attr.gravity
+            android.R.attr.gravity,
+            android.R.attr.includeFontPadding,
         ), defStyleAttr, 0)
         try {
+            attrIndex = 0
             // 默认垂直居中+正向
-            gravity = typedArray.getInt(0, Gravity.START or Gravity.CENTER_VERTICAL)
+            gravity = typedArray.getInt(attrIndex++, Gravity.START or Gravity.CENTER_VERTICAL)
+            includeFontPadding = typedArray.getBoolean(attrIndex++, false)
+            isFallbackLineSpacing = false
         } finally {
             typedArray.recycle()
         }
@@ -97,7 +102,10 @@ class Text : AppCompatTextView {
         setTextSize(TypedValue.COMPLEX_UNIT_PX, paint.textSize)
     }
 
-    private val FontMetrics.fontHeight: Float get() = descent - ascent
+    private val FontMetrics.fontHeight: Float get() = if (includeFontPadding)
+        bottom - top
+    else
+        descent - ascent
 
     private companion object {
         private const val MIN_LINE_HEIGHT: Int = 8
