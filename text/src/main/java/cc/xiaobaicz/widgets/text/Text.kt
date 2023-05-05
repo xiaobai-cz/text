@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.widget.TextViewCompat
 import kotlin.math.max
 
 /**
@@ -61,7 +62,7 @@ class Text : AppCompatTextView {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.AT_MOST) {
+        if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY) {
             // 重新计算高度，适应多行文本
             val layout = StaticLayout.Builder.obtain(text, 0, text.length, paint, measuredWidth).build()
             val height = lineHeightX * calculateLines(layout.lineCount) + paddingTop + paddingBottom
@@ -85,10 +86,14 @@ class Text : AppCompatTextView {
     var lineHeightX: Int = MIN_LINE_HEIGHT
         private set
 
+    fun changeTextSize() {
+        lineHeight = lineHeightX
+    }
+
     override fun setLineHeight(lineHeight: Int) {
         lineHeightX = max(lineHeight, MIN_LINE_HEIGHT)
         adaptiveTextSize()
-        super.setLineHeight(lineHeightX)
+        TextViewCompat.setLineHeight(this, lineHeightX)
         requestLayout()
         invalidate()
     }
