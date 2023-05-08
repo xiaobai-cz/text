@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="lineHeightX" format="dimension"/>
+    <declare-styleable name="Text">
+        <attr name="lineHeightX"/>
+    </declare-styleable>
+    <declare-styleable name="Edit">
+        <attr name="lineHeightX"/>
+    </declare-styleable>
+    <declare-styleable name="CheckedText">
+        <attr name="lineHeightX"/>
+    </declare-styleable>
+</resources>

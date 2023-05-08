@@ -4,16 +4,16 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.AppCompatCheckedTextView
 
 /**
- * Text
+ * CheckedText
  * 1. 行高适配
- * @see R.styleable.Text
- * @see R.styleable.Text_lineHeightX
+ * @see R.styleable.CheckedText
+ * @see R.styleable.CheckedText_lineHeightX
  * @author xiaobai
  */
-class Text : AppCompatTextView, IText {
+class CheckedText : AppCompatCheckedTextView, IText {
 
     private val adaptiveHelper = AdaptiveHelper()
 
@@ -23,7 +23,7 @@ class Text : AppCompatTextView, IText {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         adaptiveHelper.handleSysAttr(this, attrs, defStyleAttr)
-        adaptiveHelper.handleCustomAttr(this, attrs, R.styleable.Text, defStyleAttr)
+        adaptiveHelper.handleCustomAttr(this, attrs, R.styleable.CheckedText, defStyleAttr)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
