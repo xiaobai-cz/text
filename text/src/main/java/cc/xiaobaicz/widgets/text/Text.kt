@@ -46,7 +46,7 @@ class Text : AppCompatTextView, IText {
     }
 
     override fun getLineHeight(): Int {
-        return adaptiveHelper.lineHeightX
+        return adaptiveHelper.lineHeight
     }
 
     override val provide: TextView get() = this

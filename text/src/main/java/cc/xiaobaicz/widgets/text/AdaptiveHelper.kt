@@ -20,7 +20,7 @@ class AdaptiveHelper {
     @StyleableRes
     private var attrIndex = 0
 
-    var lineHeightX: Int = MIN_LINE_HEIGHT
+    var lineHeight: Int = MIN_LINE_HEIGHT
 
     /**
      * 处理自定义属性
@@ -66,7 +66,7 @@ class AdaptiveHelper {
             val than = view.provide
             val text = than.text?.toString() ?: ""
             val layout = StaticLayout.Builder.obtain(text, 0, text.length, than.paint, than.measuredWidth).build()
-            val height = lineHeightX * than.calculateLines(layout.lineCount) + than.paddingTop + than.paddingBottom
+            val height = lineHeight * than.calculateLines(layout.lineCount) + than.paddingTop + than.paddingBottom
             view.setMeasuredDimensionX(than.measuredWidth, height)
         }
     }
@@ -79,9 +79,9 @@ class AdaptiveHelper {
     }
 
     fun setLineHeight(view: TextView, lineHeight: Int) {
-        lineHeightX = max(lineHeight, MIN_LINE_HEIGHT)
+        this.lineHeight = max(lineHeight, MIN_LINE_HEIGHT)
         adaptiveTextSize(view)
-        TextViewCompat.setLineHeight(view, lineHeightX)
+        TextViewCompat.setLineHeight(view, this.lineHeight)
         view.requestLayout()
         view.invalidate()
     }
@@ -89,8 +89,8 @@ class AdaptiveHelper {
     private fun adaptiveTextSize(view: TextView) {
         val paint = view.paint
         var metrics = paint.fontMetrics
-        while (metrics.fontHeight(view) > lineHeightX) {
-            paint.textSize -= max((metrics.fontHeight(view) - lineHeightX) / 2, 1f)
+        while (metrics.fontHeight(view) > lineHeight) {
+            paint.textSize -= max((metrics.fontHeight(view) - lineHeight) / 2, 1f)
             metrics = paint.fontMetrics
         }
         view.setTextSize(TypedValue.COMPLEX_UNIT_PX, paint.textSize)
