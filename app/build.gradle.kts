@@ -47,5 +47,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation(project(":text"))
-//    implementation("com.github.xiaobaicz.text:text:1.0.2")
+//    implementation("com.github.xiaobaicz.text:text:1.0.3")
 }

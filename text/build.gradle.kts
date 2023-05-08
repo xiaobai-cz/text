@@ -43,7 +43,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.github.xiaobaicz"
                 artifactId = "text"
-                version = "1.0.2"
+                version = "1.0.3"
 
                 afterEvaluate {
                     from(components["release"])
@@ -52,7 +52,7 @@ afterEvaluate {
             register<MavenPublication>("debug") {
                 groupId = "com.github.xiaobaicz"
                 artifactId = "text-debug"
-                version = "1.0.2"
+                version = "1.0.3"
 
                 afterEvaluate {
                     from(components["debug"])
