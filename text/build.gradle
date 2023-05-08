@@ -11,6 +11,8 @@ android {
     defaultConfig {
         minSdk 23
         targetSdk 33
+        versionCode 230508
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -45,13 +47,13 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.xiaobaicz'
                 artifactId = 'text'
-                version = '1.0.2'
+                version = '1.0.3'
             }
             debug(MavenPublication) {
                 from components.debug
                 groupId = 'com.github.xiaobaicz'
                 artifactId = 'text-debug'
-                version = '1.0.2'
+                version = '1.0.3'
             }
         }
     }
