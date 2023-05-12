@@ -1,5 +1,8 @@
 # ChangeLog
 
+### 1.0.4
+1. 修复Edit，CheckedText默认样式
+
 ### 1.0.3
 1. 提取AdaptiveHelper
 2. 扩展Edit
