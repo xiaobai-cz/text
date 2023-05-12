@@ -19,7 +19,7 @@ class CheckedText : AppCompatCheckedTextView, IText {
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.checkedTextViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         adaptiveHelper.handleSysAttr(this, attrs, defStyleAttr)

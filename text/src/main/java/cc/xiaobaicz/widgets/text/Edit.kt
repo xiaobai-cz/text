@@ -5,6 +5,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.view.setPadding
 
 /**
  * Edit
@@ -19,11 +20,12 @@ class Edit : AppCompatEditText, IText {
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.editTextStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         adaptiveHelper.handleSysAttr(this, attrs, defStyleAttr)
         adaptiveHelper.handleCustomAttr(this, attrs, R.styleable.Edit, defStyleAttr)
+        setPadding(0)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
