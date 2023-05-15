@@ -49,12 +49,6 @@ afterEvaluate {
                 artifactId = 'text'
                 version = '1.0.4'
             }
-            debug(MavenPublication) {
-                from components.debug
-                groupId = 'com.github.xiaobaicz'
-                artifactId = 'text-debug'
-                version = '1.0.4'
-            }
         }
     }
 }
