@@ -1,5 +1,8 @@
 # ChangeLog
 
+### 1.0.5
+1. 新增setTextSizeX的PX版本
+
 ### 1.0.4
 1. 修复Edit，CheckedText默认样式
 

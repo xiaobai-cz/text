@@ -41,6 +41,13 @@ interface IText {
     /**
      * 设置字体大小并自适应于行高
      */
+    fun setTextSizeX(size: Int, lineHeight: Int = getLineHeight()) {
+        setTextSizeX(TypedValue.COMPLEX_UNIT_PX, size.toFloat(), lineHeight)
+    }
+
+    /**
+     * 设置字体大小并自适应于行高
+     */
     fun setTextSizeX(unit: Int, size: Float, lineHeight: Int = getLineHeight()) {
         if (lineHeight != getLineHeight())
             setLineHeight(lineHeight)
