@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 1.0.6
+1. 更新Gradle文件为KTS
+2. 更新SDK 34
+
 ### 1.0.5
 1. 新增setTextSizeX的PX版本
 
