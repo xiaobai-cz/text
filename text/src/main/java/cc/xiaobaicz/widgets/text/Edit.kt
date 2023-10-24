@@ -1,11 +1,9 @@
 package cc.xiaobaicz.widgets.text
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
-import android.widget.TextView
+import android.util.TypedValue
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.view.setPadding
 
 /**
  * Edit
@@ -14,43 +12,36 @@ import androidx.core.view.setPadding
  * @see R.styleable.Edit_lineHeightX
  * @author xiaobai
  */
-class Edit : AppCompatEditText, IText {
+class Edit : AppCompatEditText {
 
-    private val adaptiveHelper = AdaptiveHelper()
+    private val textAdaptive = TextAdaptive()
 
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.editTextStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        adaptiveHelper.handleSysAttr(this, attrs, defStyleAttr)
-        adaptiveHelper.handleCustomAttr(this, attrs, R.styleable.Edit, defStyleAttr)
-        setPadding(0)
+        textAdaptive.handleSysAttr(this, attrs, defStyleAttr)
+        textAdaptive.handleCustomAttr(this, attrs, R.styleable.Edit, defStyleAttr)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        adaptiveHelper.onMeasure(this, widthMeasureSpec, heightMeasureSpec)
-    }
-
-    override fun setMeasuredDimensionX(measuredWidth: Int, measuredHeight: Int) {
-        setMeasuredDimension(measuredWidth, measuredHeight)
-    }
-
-    // 强制不使用额外高度
-    override fun setFallbackLineSpacing(enabled: Boolean) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return
-        super.setFallbackLineSpacing(false)
+        textAdaptive.onMeasure(this, widthMeasureSpec, heightMeasureSpec) { w, h ->
+            setMeasuredDimension(w, h)
+        }
     }
 
     override fun setLineHeight(lineHeight: Int) {
-        adaptiveHelper.setLineHeight(this, lineHeight)
+        textAdaptive.setLineHeight(this, lineHeight.toFloat())
     }
 
     override fun getLineHeight(): Int {
-        return adaptiveHelper.lineHeight
+        return textAdaptive.lineHeight.toInt()
     }
 
-    override val provide: TextView get() = this
+    override fun setTextSize(unit: Int, size: Float) {
+        super.setTextSize(TypedValue.COMPLEX_UNIT_PX, textAdaptive.handleTextSize(this, unit, size))
+    }
 
 }
