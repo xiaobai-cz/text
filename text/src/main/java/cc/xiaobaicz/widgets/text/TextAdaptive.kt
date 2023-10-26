@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StyleableRes
+import androidx.core.content.res.use
 import androidx.core.widget.TextViewCompat
 import kotlin.math.max
 
