@@ -1,30 +1,28 @@
 package cc.xiaobaicz.widgets.text
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.widget.EditText
+import androidx.appcompat.widget.AppCompatTextView
 
 /**
- * Edit
+ * Text
  * 1. 行高适配
- * @see R.styleable.Edit
- * @see R.styleable.Edit_lineHeightX
+ * @see R.styleable.Text
+ * @see R.styleable.Text_lineHeightX
  * @author xiaobai
  */
-@SuppressLint("AppCompatCustomView")
-class Edit : EditText {
+class AppCompatText : AppCompatTextView {
 
     private val textAdaptive = TextAdaptive()
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.editTextStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         textAdaptive.handleSysAttr(this, attrs, defStyleAttr)
-        textAdaptive.handleCustomAttr(this, attrs, R.styleable.Edit, defStyleAttr)
+        textAdaptive.handleCustomAttr(this, attrs, R.styleable.Text, defStyleAttr)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

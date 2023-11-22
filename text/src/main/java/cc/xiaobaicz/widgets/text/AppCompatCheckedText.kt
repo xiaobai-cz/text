@@ -1,30 +1,28 @@
 package cc.xiaobaicz.widgets.text
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.widget.EditText
+import androidx.appcompat.widget.AppCompatCheckedTextView
 
 /**
- * Edit
+ * CheckedText
  * 1. 行高适配
- * @see R.styleable.Edit
- * @see R.styleable.Edit_lineHeightX
+ * @see R.styleable.CheckedText
+ * @see R.styleable.CheckedText_lineHeightX
  * @author xiaobai
  */
-@SuppressLint("AppCompatCustomView")
-class Edit : EditText {
+class AppCompatCheckedText : AppCompatCheckedTextView {
 
     private val textAdaptive = TextAdaptive()
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.editTextStyle)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.checkedTextViewStyle)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         textAdaptive.handleSysAttr(this, attrs, defStyleAttr)
-        textAdaptive.handleCustomAttr(this, attrs, R.styleable.Edit, defStyleAttr)
+        textAdaptive.handleCustomAttr(this, attrs, R.styleable.CheckedText, defStyleAttr)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

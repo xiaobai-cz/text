@@ -1,9 +1,10 @@
 package cc.xiaobaicz.widgets.text
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
-import androidx.appcompat.widget.AppCompatCheckedTextView
+import android.widget.CheckedTextView
 
 /**
  * CheckedText
@@ -12,7 +13,8 @@ import androidx.appcompat.widget.AppCompatCheckedTextView
  * @see R.styleable.CheckedText_lineHeightX
  * @author xiaobai
  */
-class CheckedText : AppCompatCheckedTextView {
+@SuppressLint("AppCompatCustomView")
+class CheckedText : CheckedTextView {
 
     private val textAdaptive = TextAdaptive()
 

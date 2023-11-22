@@ -1,9 +1,10 @@
 package cc.xiaobaicz.widgets.text
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
-import androidx.appcompat.widget.AppCompatTextView
+import android.widget.TextView
 
 /**
  * Text
@@ -12,7 +13,8 @@ import androidx.appcompat.widget.AppCompatTextView
  * @see R.styleable.Text_lineHeightX
  * @author xiaobai
  */
-class Text : AppCompatTextView {
+@SuppressLint("AppCompatCustomView")
+class Text : TextView {
 
     private val textAdaptive = TextAdaptive()
 

@@ -1,10 +1,9 @@
 package cc.xiaobaicz.widgets.text
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.widget.EditText
+import androidx.appcompat.widget.AppCompatEditText
 
 /**
  * Edit
@@ -13,8 +12,7 @@ import android.widget.EditText
  * @see R.styleable.Edit_lineHeightX
  * @author xiaobai
  */
-@SuppressLint("AppCompatCustomView")
-class Edit : EditText {
+class AppCompatEdit : AppCompatEditText {
 
     private val textAdaptive = TextAdaptive()
 
