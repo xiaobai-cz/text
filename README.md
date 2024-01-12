@@ -18,7 +18,7 @@ allprojects {
 ~~~
 ~~~ groovy
 dependencies {
-    implementation 'com.github.xiaobaicz:text:1.0.9'
+    implementation 'com.github.xiaobaicz:text:1.1.0'
 }
 ~~~
 
