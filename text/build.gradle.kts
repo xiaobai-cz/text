@@ -76,7 +76,7 @@ publishing {
     }
     repositories {
         maven {
-            url = uri("/Users/lbc/text")
+            url = uri("./build/maven")
         }
     }
 }
