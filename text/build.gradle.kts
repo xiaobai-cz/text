@@ -76,7 +76,7 @@ publishing {
     }
     repositories {
         maven {
-            url = uri("./build/maven")
+            url = uri("../build/maven")
         }
     }
 }
