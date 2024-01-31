@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "cc.xiaobaicz.widgets.text"
+    namespace = "io.github.xiaobaicz.text"
     compileSdk = 34
 
     defaultConfig {

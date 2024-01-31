@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "cc.xiaobaicz.widgets.demo"
+    namespace = "io.github.xiaobaicz.demo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "cc.xiaobaicz.widgets.demo"
+        applicationId = "io.github.xiaobaicz.demo"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
