@@ -2,6 +2,7 @@ package io.github.xiaobaicz.text
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
+import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.AttributeSet
@@ -13,6 +14,7 @@ import androidx.annotation.StyleableRes
 import androidx.core.content.res.use
 import androidx.core.widget.TextViewCompat
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 class TextAdaptive {
 
@@ -31,7 +33,7 @@ class TextAdaptive {
         view.context.obtainStyledAttributes(attrs, intArrayOf(android.R.attr.gravity, android.R.attr.includeFontPadding, android.R.attr.textSize), defStyleAttr, 0).use { a ->
             // 默认垂直居中+正向
             view.gravity = a.getInt(indexGravity, Gravity.START or Gravity.CENTER_VERTICAL)
-            view.includeFontPadding = a.getBoolean(indexIncludeFontPadding, false)
+            view.includeFontPadding = a.getBoolean(indexIncludeFontPadding, true)
             textSize = a.getDimension(indexTextSize, view.textSize)
         }
     }
@@ -42,7 +44,7 @@ class TextAdaptive {
     fun handleCustomAttr(view: TextView, attrs: AttributeSet?, attr: IntArray, defStyleAttr: Int) {
         @StyleableRes val indexLineHeight = 0
         view.context.obtainStyledAttributes(attrs, attr, defStyleAttr, 0).use { a ->
-            lineHeight = a.getDimension(indexLineHeight, textSize * 1.2f)
+            lineHeight = a.getDimension(indexLineHeight, textSize * 1.5f)
         }
         setLineHeight(view, lineHeight)
     }
@@ -54,10 +56,45 @@ class TextAdaptive {
         if (View.MeasureSpec.getMode(heightMeasureSpec) != View.MeasureSpec.EXACTLY) {
             // 重新计算高度，适应多行文本
             val text = view.text?.toString() ?: ""
-            val layout = StaticLayout.Builder.obtain(text, 0, text.length, view.paint, view.measuredWidth).build()
-            val height = lineHeight * view.calculateLines(layout.lineCount) + view.paddingTop + view.paddingBottom
-            callback.invoke(view.measuredWidth, height.toInt())
+            val layout = StaticLayout.Builder.obtain(text, 0, text.length, view.paint, calculateTextAreaWidth(view)).build()
+            val height = calculateHeight(view, layout)
+            callback.invoke(view.measuredWidth, height)
         }
+    }
+
+    // 计算文本区域的实际宽度
+    private fun calculateTextAreaWidth(view: TextView): Int {
+        var width = view.measuredWidth - view.paddingStart - view.paddingEnd
+        val drawables = view.compoundDrawablesRelative
+        val drawableStart = drawables[0]
+        val drawableEnd = drawables[2]
+        drawableStart?.apply {
+            width -= bounds.width() + view.compoundDrawablePadding
+        }
+        drawableEnd?.apply {
+            width -= bounds.width() + view.compoundDrawablePadding
+        }
+        return width
+    }
+
+    // 计算文本区域的实际宽度
+    private fun calculateTextAreaHeight(view: TextView, layout: Layout): Int {
+        return (lineHeight * view.calculateLines(layout.lineCount)).roundToInt()
+    }
+
+    // 计算文本区域的实际宽度
+    private fun calculateHeight(view: TextView, layout: Layout): Int {
+        var height = calculateTextAreaHeight(view, layout) + view.paddingTop + view.paddingBottom
+        val drawables = view.compoundDrawablesRelative
+        val drawableTop = drawables[1]
+        val drawableBottom = drawables[3]
+        drawableTop?.apply {
+            height += bounds.width() + view.compoundDrawablePadding
+        }
+        drawableBottom?.apply {
+            height += bounds.width() + view.compoundDrawablePadding
+        }
+        return height
     }
 
     // 计算行数，受MinLines，MaxLines影响
