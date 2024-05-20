@@ -42,7 +42,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "io.github.xiaobaicz"
             artifactId = "text"
-            version = "1.1.1"
+            version = "1.2.0"
 
             afterEvaluate {
                 from(components["release"])
