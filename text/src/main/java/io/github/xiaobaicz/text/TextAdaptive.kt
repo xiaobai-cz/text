@@ -2,8 +2,6 @@ package io.github.xiaobaicz.text
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
-import android.text.Layout
-import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -55,36 +53,19 @@ class TextAdaptive {
     fun onMeasure(view: TextView, widthMeasureSpec: Int, heightMeasureSpec: Int, callback: (Int, Int) -> Unit) {
         if (View.MeasureSpec.getMode(heightMeasureSpec) != View.MeasureSpec.EXACTLY) {
             // 重新计算高度，适应多行文本
-            val text = view.text?.toString() ?: ""
-            val layout = StaticLayout.Builder.obtain(text, 0, text.length, view.paint, calculateTextAreaWidth(view)).build()
-            val height = calculateHeight(view, layout)
+            val height = calculateHeight(view)
             callback.invoke(view.measuredWidth, height)
         }
     }
 
     // 计算文本区域的实际宽度
-    private fun calculateTextAreaWidth(view: TextView): Int {
-        var width = view.measuredWidth - view.paddingStart - view.paddingEnd
-        val drawables = view.compoundDrawablesRelative
-        val drawableStart = drawables[0]
-        val drawableEnd = drawables[2]
-        drawableStart?.apply {
-            width -= bounds.width() + view.compoundDrawablePadding
-        }
-        drawableEnd?.apply {
-            width -= bounds.width() + view.compoundDrawablePadding
-        }
-        return width
+    private fun calculateTextAreaHeight(view: TextView): Int {
+        return (lineHeight * view.calculateLines(view.layout.lineCount)).roundToInt()
     }
 
     // 计算文本区域的实际宽度
-    private fun calculateTextAreaHeight(view: TextView, layout: Layout): Int {
-        return (lineHeight * view.calculateLines(layout.lineCount)).roundToInt()
-    }
-
-    // 计算文本区域的实际宽度
-    private fun calculateHeight(view: TextView, layout: Layout): Int {
-        var height = calculateTextAreaHeight(view, layout) + view.paddingTop + view.paddingBottom
+    private fun calculateHeight(view: TextView): Int {
+        var height = calculateTextAreaHeight(view) + view.paddingTop + view.paddingBottom
         val drawables = view.compoundDrawablesRelative
         val drawableTop = drawables[1]
         val drawableBottom = drawables[3]
