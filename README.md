@@ -10,7 +10,7 @@ Android自定义TextView，适配行高，字体大小&amp;组件高度严格受
 ### 引用
 ~~~ groovy
 dependencies {
-    implementation 'io.github.xiaobaicz:text:1.1.1'
+    implementation 'io.github.xiaobaicz:text:1.2.1'
 }
 ~~~
 
